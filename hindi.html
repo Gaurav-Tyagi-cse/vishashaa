@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Image Carousel</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .carousel {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-images img {
+            width: 100%;
+            min-width: 100%;
+        }
+
+        button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="carousel">
+        <div class="carousel-images">
+            <img src="assets/images/carousel1.jpg" alt="Image 1">
+            <img src="assets/images/carousel2.jpg" alt="Image 2">
+            <img src="assets/images/carousel3.jpg" alt="Image 3">
+        </div>
+        <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+        <button class="next" onclick="changeSlide(1)">&#10095;</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slideInterval = 3000; // Change slide every 3 seconds
+
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.carousel-images img');
+            if (index >= slides.length) currentSlide = 0;
+            if (index < 0) currentSlide = slides.length - 1;
+
+            const offset = -currentSlide * 100; // Move the slide
+            document.querySelector('.carousel-images').style.transform = translateX(${offset}%);
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            showSlide(currentSlide);
+        }
+
+        function autoplaySlides() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        // Show the first slide
+        showSlide(currentSlide);
+        
+        // Start autoplay
+        setInterval(autoplaySlides, slideInterval);
+    </script>
+
+</body>
+
+</html>
